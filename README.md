@@ -27,3 +27,17 @@ use the following to generate a new Brewbundle file
 ```
 brew bundle dump
 ```
+
+## random notes
+ if you have a specific folder for all your projects, you can run the following command 
+ ```
+ echo "export PROJECT_ROOT=${project_folder}" > ~/.bash/bash_profile
+ . ~/.bash_profile
+ ```
+  here is the command
+   p -- to list all the projects inside the ${project_folder}
+   p project -- cd to ${PROJECT_ROOT}/project
+   
+   
+   
+  
