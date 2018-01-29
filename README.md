@@ -21,5 +21,9 @@ add the following line to your ~/.bash_profile
  ```
  source ~/.bash_profile
  ```
+Brewfile is the file contains a list of the software that will be installed by brew bundle
 
-
+use the following to generate a new Brewbundle file
+```
+brew bundle dump
+```
