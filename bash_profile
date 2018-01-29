@@ -25,7 +25,6 @@ source $(brew --prefix)/etc/bash_completion
 alias alert='terminal-notifier -message '
 alias git_stash="git diff stash@{0}^1 stash@{0} "
 alias docker_rmi="docker rmi -f \$(docker images -a -q)"
-alias disable_anit_virus='sudo /usr/local/McAfee/AntiMalware/VSControl stopoas'
 alias ls="exa"
 alias vim="nvim"
 alias vi="vim"
