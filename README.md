@@ -1,6 +1,6 @@
 # osx_provisioning 
 
-This easy the pain on how to provision a development environment for OS X.
+This easy the pain to provision a development environment on OS X. This is more focus on Java development.
 
 ## prerequsites:
  brew and git are installed.
