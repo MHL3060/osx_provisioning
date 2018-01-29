@@ -4,6 +4,11 @@ This easy the pain to provision a development environment on OS X. This is more 
 
 ## prerequsites:
  brew and git are installed.
+ To install brew
+  ```
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+ ```
  
 ## installation.
 ```
