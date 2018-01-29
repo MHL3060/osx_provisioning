@@ -1,10 +1,11 @@
+# vim: set ft=sh:
 export PROJECT_ROOT=~/Documents/projects
 export PATH=$PATH:/opt/apache-maven/bin:/Library/Frameworks/Mono.framework/Versions/Current/bin:/usr/libexec
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
 export PS1="[\T|\u@l \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]]\$ "
 export MAVEN_OPTS="-Xms256M -Xmx2048M -noverify"
-
+export EDITOR=nvim
 function liquibase {
 	java -jar /Users/lijzu01/.m2/repository/org/liquibase/liquibase-core/3.5.1/liquibase-core-3.5.1.jar \
 		--driver=org.mariadb.jdbc.Driver \
@@ -41,6 +42,7 @@ alias search="csearch -n "
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
 alias cs="search"
 alias git_undo_delete="git checkout HEAD -- "
+alias b="brew"
 echo "---------------   ----------------"
 alias
 echo "---------------   ----------------"
