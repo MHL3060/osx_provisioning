@@ -1,6 +1,6 @@
 # osx_provisioning 
 
-This easy the pain to provision a development environment on OS X. This is more focus on Java development.
+To provision a development environment on OS X. This is focus on dev environment.
 
 ## prerequsites:
  brew and git are installed.
@@ -9,7 +9,6 @@ This easy the pain to provision a development environment on OS X. This is more 
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
  ```
- 
 ## installation.
 ```
   mkdir ~/.bash
@@ -26,7 +25,10 @@ add the following line to your ~/.bash_profile
  ```
  source ~/.bash_profile
  ```
+## Add/Remove/View software packages
 Brewfile is the file contains a list of the software that will be installed by brew bundle
+you can use your favorite text editor to view this file. 
+if you need to remove a package, just delete the line that defines the package.
 
 use the following to generate a new Brewbundle file
 ```
