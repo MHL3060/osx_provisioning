@@ -1,9 +1,10 @@
 # vim: set ft=sh:
 export PROJECT_ROOT=~/Documents/projects
 export PATH=$PATH:/usr/libexec
-export GITAWAREPROMPT=~/.bash/git-aware-prompt
-source "${GITAWAREPROMPT}/main.sh"
-export PS1="[\T|\u@l \W \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]]\$ "
+if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+    __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
+    source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
+fi
 export MAVEN_OPTS="-Xms256M -Xmx2048M -noverify"
 export EDITOR=nvim
 function liquibase {
