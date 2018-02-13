@@ -7,15 +7,6 @@ if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
 fi
 export MAVEN_OPTS="-Xms256M -Xmx2048M -noverify"
 export EDITOR=nvim
-function liquibase {
-	java -jar /Users/lijzu01/.m2/repository/org/liquibase/liquibase-core/3.5.1/liquibase-core-3.5.1.jar \
-		--driver=org.mariadb.jdbc.Driver \
-		--classpath=/Users/lijzu01/.m2/repository/org/mariadb/jdbc/mariadb-java-client/2.0.2/mariadb-java-client-2.0.2.jar \
-		--url="jdbc:mariadb://127.0.0.1/portal" \
-		--username=admin \
-		--password=7layer \
-		--changeLogFile=$1  migrate
-}
 function p {
     if [ $# == 0 ] || [ "x$1" == "xls" ]; then
         ls -l $PROJECT_ROOT
