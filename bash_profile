@@ -14,6 +14,10 @@ function p {
         cd $PROJECT_ROOT/$1
     fi
 }
+function p_list {
+    COMPREPLY=($(compgen -W "$(ls $PROJECT_ROOT)" -- "${COMP_WORDS[1]}"))
+}
+complete -F p_list p
 source $(brew --prefix)/etc/bash_completion
 alias alert='terminal-notifier -message '
 alias git_stash="git diff stash@{0}^1 stash@{0} "
