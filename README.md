@@ -34,6 +34,14 @@ use the following to generate a new Brewbundle file
 ```
 brew bundle dump
 ```
+## install dein.vim package management for nvim 
+mkdir -p ~/.vim/bundles
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+sh ./installer.sh ~/.vim/bundles
+append the vimrc to your .vimrc
+
+open vim
+:call dein:install()
 
 ## random notes
  if you have a specific folder for all your projects, you can run the following command 
