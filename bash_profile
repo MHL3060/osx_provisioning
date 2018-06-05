@@ -32,7 +32,7 @@ function watchJs {
 }
 complete -F p_list p
 source $(brew --prefix)/etc/bash_completion
-source ~/.bash/hg-completion.bash
+source ~/.bash/osx_provisioning/hg-completion.bash
 alias bash_profile="vim ~/.bash/osx_provisioning/bash_profile"
 alias watchJs="npm run build.dev.watch:jit -- --nl"
 alias buildClient="npm run test && npm run build.dev:aot-check"
