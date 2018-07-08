@@ -65,6 +65,12 @@ alias csearch="mdfind"
 alias build_aot="npm run build.dev:aot-check"
 echo "---------------   ----------------"
 alias
+echo "Ctrl + y to paste"
+echo "Ctrl + u to copy until cursor"
+echo "Ctrl + k to copy after cursor"
+echo "Ctrl + w to copy word before cursor"
+echo "Ctrl + d delete char under cursor"
+echo "Ctrl + h delete char before cursor" 
 echo "---------------   ----------------"
 export PATH="/usr/local/opt/node@8/bin:$PATH"
 export NVM_DIR=$HOME/.nvm
