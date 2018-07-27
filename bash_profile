@@ -1,6 +1,6 @@
 # vim: set ft=sh:
+platform=`uname`
 PS1=
-export PROJECT_ROOT=~/Workspace/com.visiercorp.vserver
 export PATH=$PATH:/usr/libexec
 #if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
 #    __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
@@ -20,7 +20,7 @@ function p {
     fi
 }
 function p_list {
-    COMPREPLY=($(compgen -W "$(ls $PROJECT_ROOT)" -- "${COMP_WORDS[1]}"))
+    COMPREPLY=($(compgen -W "$(\ls $PROJECT_ROOT)" -- "${COMP_WORDS[1]}"))
 }
 function debugJs {
     echo "./node_modules/.bin/karma start karma.config.js --debug --no-single-run -- --grep $1"
@@ -31,19 +31,20 @@ function watchJs {
     npm run build.dev.watch:jit -- --nl
 }
 complete -F p_list p
-source $(brew --prefix)/etc/bash_completion
-source ~/.bash/osx_provisioning/hg-completion.bash
+alias git_web="git instaweb --httpd=webrick"
 alias bash_profile="vim ~/.bash/osx_provisioning/bash_profile"
 alias watchJs="npm run build.dev.watch:jit -- --nl"
 alias buildClient="npm run test && npm run build.dev:aot-check"
 alias alert='terminal-notifier -message '
 alias git_stash="git diff stash@{0}^1 stash@{0} "
 alias docker_rmi="docker rmi -f \$(docker images -a -q)"
-alias ls="exa"
+if [ `which exa` ] then
+	alias ls="exa"
+fi
 alias vim="nvim"
 alias vi="vim"
 alias sl="ls"
-alias ll="ls -l --git -h"
+alias ll="ls -l" # --git -h"
 alias ag="ag --ignore '*.js' --ignore '*.css'"
 alias grep="ag"
 alias project_root="cd $PROJECT_ROOT"
@@ -74,5 +75,13 @@ echo "Ctrl + h delete char before cursor"
 echo "---------------   ----------------"
 export PATH="/usr/local/opt/node@8/bin:$PATH"
 export NVM_DIR=$HOME/.nvm
-sh ~/.bash/osx_provisioning/osx_env_sync.sh
-. /usr/local/opt/nvm/nvm.sh
+GIT_PROMPT_END="\n\e[0;31m[\u@\h]\e[m \A \$ "
+if [ "$platform" == "Darwin" ]; then
+	sh ~/.bash/osx_provisioning/osx_env_sync.sh
+	source $(brew --prefix)/etc/bash_completion
+fi
+
+if [ -e /usr/local/opt/nvm/nvm.sh ]; then
+	. /usr/local/opt/nvm/nvm.sh
+fi
+. ~/.bash/.bash-git-prompt/gitprompt.sh
