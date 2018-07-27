@@ -38,7 +38,7 @@ alias buildClient="npm run test && npm run build.dev:aot-check"
 alias alert='terminal-notifier -message '
 alias git_stash="git diff stash@{0}^1 stash@{0} "
 alias docker_rmi="docker rmi -f \$(docker images -a -q)"
-if [ `which exa` ] then
+if [ `which exa` ]; then
 	alias ls="exa"
 fi
 alias vim="nvim"
@@ -80,7 +80,9 @@ if [ "$platform" == "Darwin" ]; then
 	sh ~/.bash/osx_provisioning/osx_env_sync.sh
 	source $(brew --prefix)/etc/bash_completion
 fi
-
+if [ -e /usr/share/bash-completion/completions/git ]; then
+	source /usr/share/bash-completion/completions/git
+fi
 if [ -e /usr/local/opt/nvm/nvm.sh ]; then
 	. /usr/local/opt/nvm/nvm.sh
 fi
