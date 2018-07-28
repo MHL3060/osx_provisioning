@@ -1,5 +1,6 @@
 # vim: set ft=sh:
-# export PROJECT_ROOT=~/Workspace/com.visiercorp.vserver
+platform=`uname`
+PS1=
 export PATH=$PATH:/usr/libexec
 GIT_PROMPT_END="\n[\u@\h] \A \$ "
 if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
@@ -33,23 +34,24 @@ function watchJs {
     p web
     npm run build.dev.watch:jit -- --nl
 }
+LS_OPTS=""
 complete -F p_list p
-source $(brew --prefix)/etc/bash_completion
-source ~/.bash/osx_provisioning/hg-completion.bash
-alias webpack_remote_server="npm run build.dev.server:jit -- --vs http://l-0fnr0hp2/:8080"
-alias visualvm="$JAVA_HOME/bin/jvisualvm"
+alias git_web="git instaweb --httpd=webrick"
 alias bash_profile="vim ~/.bash/osx_provisioning/bash_profile"
 alias watchJs="npm run build.dev.watch:jit -- --nl"
 alias buildClient="npm run test && npm run build.dev:aot-check"
 alias alert='terminal-notifier -message '
 alias git_stash="git diff stash@{0}^1 stash@{0} "
 alias docker_rmi="docker rmi -f \$(docker images -a -q)"
-alias ls="exa"
+if [ `which exa` ]; then
+	alias ls="exa"
+    LS_OPTS="--git -h"
+fi
 alias vim="nvim"
 alias vi="vim"
 alias sl="ls"
-alias ll="ls -l --git -h"
-alias ag="ag --ignore '*.js' --ignore '*.css' --ignore-dir 'target'"
+alias ll="ls -l $LS_OPTS"
+alias ag="ag --ignore '*.js' --ignore '*.css'"
 alias grep="ag"
 alias project_root="cd $PROJECT_ROOT"
 alias la="ls -a"
@@ -69,8 +71,24 @@ alias csearch="mdfind"
 alias build_aot="npm run build.dev:aot-check"
 echo "---------------   ----------------"
 alias
+echo "Ctrl + y to paste"
+echo "Ctrl + u to copy until cursor"
+echo "Ctrl + k to copy after cursor"
+echo "Ctrl + w to copy word before cursor"
+echo "Ctrl + d delete char under cursor"
+echo "Ctrl + h delete char before cursor" 
 echo "---------------   ----------------"
 export PATH="/usr/local/opt/node@8/bin:$PATH"
 export NVM_DIR=$HOME/.nvm
-sh ~/.bash/osx_provisioning/osx_env_sync.sh
-. /usr/local/opt/nvm/nvm.sh
+GIT_PROMPT_END="\n\e[0;31m[\u@\h]\e[m \A \$ "
+if [ "$platform" == "Darwin" ]; then
+	sh ~/.bash/osx_provisioning/osx_env_sync.sh
+	source $(brew --prefix)/etc/bash_completion
+fi
+if [ -e /usr/share/bash-completion/completions/git ]; then
+	source /usr/share/bash-completion/completions/git
+fi
+if [ -e /usr/local/opt/nvm/nvm.sh ]; then
+	. /usr/local/opt/nvm/nvm.sh
+fi
+. ~/.bash/.bash-git-prompt/gitprompt.sh
