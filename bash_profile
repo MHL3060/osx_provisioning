@@ -12,9 +12,9 @@ if [ -f /usr/local/Cellar/git/2.17.0/etc/bash_completion.d/git-completion.bash ]
 fi
 export MAVEN_OPTS="-Xms256M -Xmx2048M -noverify"
 export EDITOR=nvim
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2049M"
-export PROMPT_DIRTRIM=3
+export PROMPT_DIRTRIM=1
 export PS1='\t[\u@l \w]$ '
 function p {
     if [ $# == 0 ] || [ "x$1" == "xls" ]; then
@@ -27,18 +27,23 @@ function p_list {
     COMPREPLY=($(compgen -W "$(\ls $PROJECT_ROOT)" -- "${COMP_WORDS[1]}"))
 }
 function debugJs {
-    echo "./node_modules/.bin/karma start karma.config.js --debug --no-single-run -- --grep $1"
-   node --max-old-space-size=8000 ./node_modules/.bin/karma start karma.config.js --debug --no-single-run -- --grep $1
+    echo "./node_modules/.bin/karma start karma.config.js --debug --no-single-run --testOnly *$1*"
+    node --max-old-space-size=4000 ./node_modules/.bin/karma start karma.config.js --debug --no-single-run --testOnly *$1*
 }
 function watchJs {
     p web
     npm run build.dev.watch:jit -- --nl
 }
+
+function cd {
+    builtin cd "$@" && ls;
+}
+
 LS_OPTS=""
 complete -F p_list p
 alias git_web="git instaweb --httpd=webrick"
 alias bash_profile="vim ~/.bash/osx_provisioning/bash_profile"
-alias watchJs="npm run build.dev.watch:jit -- --nl"
+alias watchJs="p web &&npm run build.dev.watch:jit -- --nl"
 alias buildClient="npm run test && npm run build.dev:aot-check"
 alias alert='terminal-notifier -message '
 alias git_stash="git diff stash@{0}^1 stash@{0} "
