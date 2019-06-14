@@ -1,4 +1,7 @@
 # vim: set ft=sh:
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+echo "D=$DIR"
 platform=`uname`
 PS1=
 export PATH=$PATH:/usr/libexec
@@ -12,13 +15,12 @@ if [ -f /usr/local/Cellar/git/2.17.0/etc/bash_completion.d/git-completion.bash ]
 fi
 export MAVEN_OPTS="-Xms256M -Xmx2048M -noverify"
 export EDITOR=nvim
-export JAVA_HOME=$(/usr/libexec/java_home -v 11)
 export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2049M"
 export PROMPT_DIRTRIM=1
 export PS1='\t[\u@l \w]$ '
 
-. functions.sh
-. alias.sh
+. $DIR/functions.sh
+. $DIR/alias.sh
 LS_OPTS=""
 complete -F p_list p
 echo "---------------   ----------------"

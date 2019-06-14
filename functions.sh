@@ -53,3 +53,14 @@ function update_docker-compose {
     yq w - "services.activemq.ports[+]" "1883:1883" #> ~/docker_compose.yml
 }
 
+function set_java_home {
+	sdk d java $1
+	if [ $? == 1 ]; then 
+		sdk ls java
+	fi
+}
+
+function extract_docker_compose_enviroment {
+	path=$1
+	yq r docker-compose.yml $path |sed -e 's/:\ /=/'
+}
