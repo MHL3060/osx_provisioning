@@ -25,7 +25,6 @@ LS_OPTS=""
 complete -F p_list p
 echo "---------------   ----------------"
 alias
-echo "https token 7SZMozezqTxZHTEq1gMy feed token cjnv9uN9UxRzK4v9jBaP"
 echo "Ctrl + y to paste"
 echo "Ctrl + u to copy until cursor"
 echo "Ctrl + k to copy after cursor"
