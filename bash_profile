@@ -18,7 +18,7 @@ export EDITOR=nvim
 export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2049M"
 export PROMPT_DIRTRIM=1
 export PS1='\t[\u@l \w]$ '
-
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 . $DIR/functions.sh
 . $DIR/alias.sh
 LS_OPTS=""
