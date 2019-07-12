@@ -44,6 +44,13 @@ function delete_all_container {
         docker container rm $containers
 }
 
+function config_git {
+	git config --global alias.co checkout
+	git config --global alias.br branch
+	git config --global alias.ci commit
+	git config --global alias.st status
+}
+
 function update_docker-compose {
     FILE=${1:-docker-compose.yml}
     yq d $FILE services.tomcat | \

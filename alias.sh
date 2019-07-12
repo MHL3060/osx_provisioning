@@ -7,7 +7,7 @@ alias git_stash="git diff stash@{0}^1 stash@{0} "
 alias docker_rmi="docker rmi -f \$(docker images -a -q)"
 if [ `which exa` ]; then
         alias ls="exa"
-    LS_OPTS="--git -h"
+    	LS_OPTS="--git -h"
 fi
 alias vim="nvim"
 alias vi="vim"
