@@ -31,7 +31,7 @@ echo "Ctrl + k to copy after cursor"
 echo "Ctrl + w to copy word before cursor"
 echo "Ctrl + d delete char under cursor"
 echo "Ctrl + h delete char before cursor" 
-echo "DCEVM -XXaltjvm=dcevm -javaagent:~/hotswap-agent.jar"
+echo "DCEVM -XXaltjvm=dcevm -javaagent:$HOME/hotswap-agent.jar"
 echo "---------------   ----------------"
 export PATH="/usr/local/bin:$PATH"
 export NVM_DIR=$HOME/.nvm
