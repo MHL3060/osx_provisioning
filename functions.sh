@@ -60,6 +60,24 @@ function update_docker-compose {
     yq w - "services.activemq.ports[+]" "1883:1883" #> ~/docker_compose.yml
 }
 
+function show_hints {
+	echo ""
+	echo "+++++++++++++++++++++++++++++++++++++++++++++++"
+	echo "+++++++++++++++++++++++++++++++++++++++++++++++"
+	alias
+	echo "Ctrl + y to paste"
+	echo "Ctrl + u to copy until cursor"
+	echo "Ctrl + k to copy after cursor"
+	echo "Ctrl + w to copy word before cursor"
+	echo "Ctrl + d delete char under cursor"
+	echo "Ctrl + h delete char before cursor" 
+	echo "DCEVM -XXaltjvm=dcevm -javaagent:$HOME/hotswap-agent.jar"
+	echo "pbcopy and pbpaste for copy and paste"
+	export PATH="/usr/local/bin:$PATH"
+	export NVM_DIR=$HOME/.nvm
+	echo "+++++++++++++++++++++++++++++++++++++++++++++++"
+}
+
 function set_java_home {
 	sdk d java $1
 	if [ $? == 1 ]; then 
@@ -70,4 +88,24 @@ function set_java_home {
 function extract_docker_compose_enviroment {
 	path=$1
 	yq r docker-compose.yml $path |sed -e 's/:\ /=/'
+}
+
+function retry {
+  local retries=$1
+  shift
+
+  local count=0
+  until "$@"; do
+    exit=$?
+    wait=$((2 ** $count))
+    count=$(($count + 1))
+    if [ $count -lt $retries ]; then
+      echo "Retry $count/$retries exited $exit, retrying in $wait seconds..."
+      sleep $wait
+    else
+      echo "Retry $count/$retries exited $exit, no more retries left."
+      return $exit
+    fi
+  done
+  return 0
 }
