@@ -5,6 +5,86 @@ function p {
         cd $PROJECT_ROOT/$1
     fi
 }
+function klog {
+	echo "this method filters feature and datadog log"
+	k8s_log $* |grep -v 'datadog' |grep -v heartbeat |grep -v jvm |grep -v jmx |grep -v feature
+}
+
+function pk_exec {
+	if [[ "$1x" =~ ^- ]]; then
+                if [ "$1x" == "-px" ]; then
+                        K8_CONTEXT="$PROD_K8_CONTEXT"
+                        echo "list pods from prod environment"
+                elif [ "$1x" == "-ox" ]; then
+                        K8_CONTEXT="$ORT_K8_CONTEXT"
+                        echo "list prods from ORT environment"
+                else
+                        K8_CONTEXT="$TEST_K8_CONTEXT"
+                        echo "list pods from test environment"
+                fi
+                shift
+        else
+
+                K8_CONTEXT="$TEST_K8_CONTEXT"
+                echo "list pods from test environment"
+
+        fi
+	pod=$1
+	executable=${2:-/bin/bash}
+	kubectl exec -it $pod --context=$K8_CONTEXT -n $K8_NAME $executable
+}
+
+
+function pk_ls_pod {
+	if [ "$1x" == "-px" ]; then
+		K8_CONTEXT="$PROD_K8_CONTEXT"
+		echo "list pods from prod environment"
+	elif [ "$1x" == "-ox" ]; then 
+		K8_CONTEXT="$ORT_K8_CONTEXT"
+		echo "list prods from ORT environment"
+	else 
+		K8_CONTEXT="$TEST_K8_CONTEXT"
+		echo "list pods from test environment"
+	fi
+	echo "kubectl get pods --context=$K8_CONTEXT -n $K8_NAME";
+	kubectl get pods --context=$K8_CONTEXT -n $K8_NAME
+}
+
+function pk_log {
+	if [[ "$1x" =~ ^- ]]; then 
+		if [ "$1x" == "-px" ]; then
+			K8_CONTEXT="$PROD_K8_CONTEXT"
+			echo "list pods from prod environment"
+			shift
+		elif [ "$1x" == "-ox" ]; then 
+			K8_CONTEXT="$ORT_K8_CONTEXT"
+			echo "list prods from ORT environment"
+			shift
+		elif [ "$1x" != "-fx" ]; then 
+			K8_CONTEXT="$TEST_K8_CONTEXT"
+			echo "list pods from test environment"
+		fi
+	else
+
+		K8_CONTEXT="$TEST_K8_CONTEXT"
+		echo "list pods from test environment"
+
+	fi
+	echo "k8s_log $* --context=$K8_CONTEXT -n $K8_NAME --all-containers"
+	k8s_log $* --context=$K8_CONTEXT -n $K8_NAME --all-containers
+}
+
+function mvn_switch_profile {
+	if [ -f ~/.m2/settings.xml ]; then
+		mv ~/.m2/settings.xml ~/.m2/settings-$current_active_profile.xml
+	fi
+	if [ -f ~/.m2/settings-$1.xml ]; then
+		cp ~/.m2/settings-$1.xml ~/.m2/settings.xml
+	fi 
+		
+	export current_active_profile=$1
+}
+
 function p_list {
     COMPREPLY=($(compgen -W "$(\ls $PROJECT_ROOT)" -- "${COMP_WORDS[1]}"))
 }
@@ -17,9 +97,13 @@ function watchJs {
     npm run build.dev.watch:jit -- --nl
 }
 
-function cd {
-    builtin cd "$@" && ls;
+function k8sh {
+	kubectl exec -it $1 /bin/sh
 }
+function cd {
+    builtin cd "$@" && ls -G;
+}
+
 function docker_compose_to_host {
 
     #

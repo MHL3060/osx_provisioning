@@ -35,6 +35,7 @@ alias cat="bat"
 alias k8s_ls_pod="kubectl get pod"
 alias k8s_rm_pod=" kubectl delete pod"
 alias k8s_log="kubectl logs"
+alias kexec="kubectl exec -it"
 alias k=kubectl
 alias create_k_token="k -n kube-system describe secret default"
 alias clear_kernel_cache="sudo touch /System/Library/Extensions && sudo kextcache -u /"

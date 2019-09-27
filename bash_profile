@@ -25,7 +25,7 @@ LS_OPTS=""
 complete -F p_list p
 
 if [ "$platform" == "Darwin" ]; then
-	sh ~/.bash/osx_provisioning/osx_env_sync.sh
+	# sh ~/.bash/osx_provisioning/osx_env_sync.sh
 	source $(brew --prefix)/etc/bash_completion
 fi
 if [ -e /usr/share/bash-completion/completions/git ]; then
