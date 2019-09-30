@@ -11,7 +11,7 @@ if [ `which exa` ]; then
 fi
 alias vim="nvim"
 alias vi="vim"
-alias sl="ls"
+# alias sl="ls"
 alias ll="ls -l $LS_OPTS"
 alias ag="ag --ignore '*.js' --ignore '*.css'"
 alias agg="ag"

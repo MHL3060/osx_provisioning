@@ -7,7 +7,7 @@ function p {
 }
 function klog {
 	echo "this method filters feature and datadog log"
-	k8s_log $* |grep -v 'datadog' |grep -v heartbeat |grep -v jvm |grep -v jmx |grep -v feature
+	kubectl logs $* |grep -v 'datadog' |grep -v heartbeat |grep -v jvm |grep -v jmx |grep -v feature
 }
 
 function pk_exec {
@@ -22,6 +22,7 @@ function pk_exec {
                         K8_CONTEXT="$TEST_K8_CONTEXT"
                         echo "list pods from test environment"
                 fi
+		
                 shift
         else
 
@@ -70,8 +71,8 @@ function pk_log {
 		echo "list pods from test environment"
 
 	fi
-	echo "k8s_log $* --context=$K8_CONTEXT -n $K8_NAME --all-containers"
-	k8s_log $* --context=$K8_CONTEXT -n $K8_NAME --all-containers
+	echo "kubectl logs $* --context=$K8_CONTEXT -n $K8_NAME --all-containers"
+	kubectl logs $* --context=$K8_CONTEXT -n $K8_NAME --all-containers
 }
 
 function mvn_switch_profile {
