@@ -14,20 +14,20 @@ function pk_exec {
 	if [[ "$1x" =~ ^- ]]; then
                 if [ "$1x" == "-px" ]; then
                         K8_CONTEXT="$PROD_K8_CONTEXT"
-                        echo "list pods from prod environment"
+                        echo "pods from prod environment"
                 elif [ "$1x" == "-ox" ]; then
                         K8_CONTEXT="$ORT_K8_CONTEXT"
                         echo "list prods from ORT environment"
                 else
                         K8_CONTEXT="$TEST_K8_CONTEXT"
-                        echo "list pods from test environment"
+                        echo "pods from test environment"
                 fi
 		
                 shift
         else
 
                 K8_CONTEXT="$TEST_K8_CONTEXT"
-                echo "list pods from test environment"
+                echo "pods from test environment"
 
         fi
 	pod=$1
@@ -39,13 +39,13 @@ function pk_exec {
 function pk_ls_pod {
 	if [ "$1x" == "-px" ]; then
 		K8_CONTEXT="$PROD_K8_CONTEXT"
-		echo "list pods from prod environment"
+		echo "pods from prod environment"
 	elif [ "$1x" == "-ox" ]; then 
 		K8_CONTEXT="$ORT_K8_CONTEXT"
 		echo "list prods from ORT environment"
 	else 
 		K8_CONTEXT="$TEST_K8_CONTEXT"
-		echo "list pods from test environment"
+		echo "pods from test environment"
 	fi
 	echo "kubectl get pods --context=$K8_CONTEXT -n $K8_NAME";
 	kubectl get pods --context=$K8_CONTEXT -n $K8_NAME
@@ -55,7 +55,7 @@ function pk_log {
 	if [[ "$1x" =~ ^- ]]; then 
 		if [ "$1x" == "-px" ]; then
 			K8_CONTEXT="$PROD_K8_CONTEXT"
-			echo "list pods from prod environment"
+			echo "pods from prod environment"
 			shift
 		elif [ "$1x" == "-ox" ]; then 
 			K8_CONTEXT="$ORT_K8_CONTEXT"
@@ -63,12 +63,16 @@ function pk_log {
 			shift
 		elif [ "$1x" != "-fx" ]; then 
 			K8_CONTEXT="$TEST_K8_CONTEXT"
-			echo "list pods from test environment"
+			echo "pods from test environment"
+		else 
+			K8_CONTEXT="$TEST_K8_CONTEXT"
+                        echo "pods from test environment"
 		fi
+
 	else
 
 		K8_CONTEXT="$TEST_K8_CONTEXT"
-		echo "list pods from test environment"
+		echo "pods from test environment"
 
 	fi
 	echo "kubectl logs $* --context=$K8_CONTEXT -n $K8_NAME --all-containers"
@@ -156,6 +160,9 @@ function show_hints {
 	echo "Ctrl + w to copy word before cursor"
 	echo "Ctrl + d delete char under cursor"
 	echo "Ctrl + h delete char before cursor" 
+	echo "Ctrl + - undo deletion"
+	echo "Alt + f forward one word"
+	echo "Alt + b backward one word"
 	echo "DCEVM -XXaltjvm=dcevm -javaagent:$HOME/hotswap-agent.jar"
 	echo "pbcopy and pbpaste for copy and paste"
 	export PATH="/usr/local/bin:$PATH"

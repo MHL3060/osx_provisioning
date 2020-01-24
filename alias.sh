@@ -22,7 +22,6 @@ alias docker_log="docker logs -f "
 alias docker_exec="docker exec -it "
 alias remove_download_warning="sudo xattr -d com.apple.quarantine "
 alias search="csearch -n "
-alias code='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
 alias cs="search"
 alias git_undo_delete="git checkout HEAD -- "
 alias b="brew"
