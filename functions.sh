@@ -10,6 +10,31 @@ function klog {
 	kubectl logs $* |grep -v 'datadog' |grep -v heartbeat |grep -v jvm |grep -v jmx |grep -v feature
 }
 
+function pk {
+	if [[ "$1x" =~ ^- ]]; then
+			if [ "$1x" == "-px" ]; then
+					K8_CONTEXT="$PROD_K8_CONTEXT"
+					echo "pods from prod environment"
+			elif [ "$1x" == "-ox" ]; then
+					K8_CONTEXT="$ORT_K8_CONTEXT"
+					echo "list prods from ORT environment"
+			else
+					K8_CONTEXT="$TEST_K8_CONTEXT"
+					echo "pods from test environment"
+			fi
+			
+			shift
+	else
+
+			K8_CONTEXT="$TEST_K8_CONTEXT"
+			echo "pods from test environment"
+
+	fi
+	pod=$1
+
+	kubectl $* --context=$K8_CONTEXT -n $K8_NAME
+}
+
 function pk_exec {
 	if [[ "$1x" =~ ^- ]]; then
                 if [ "$1x" == "-px" ]; then
@@ -175,6 +200,12 @@ function set_java_home {
 	if [ $? == 1 ]; then 
 		sdk ls java
 	fi
+}
+
+function pk_log_parsed {
+	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+	echo "D=$DIR"
+	pk_log $* -f --tail=1 | ~/.bash/osx_provisioning/parse_log.py
 }
 
 function extract_docker_compose_enviroment {
