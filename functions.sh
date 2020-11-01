@@ -35,6 +35,28 @@ function pk {
 	kubectl $* --context=$K8_CONTEXT -n $K8_NAME
 }
 
+function pk_details {
+	if [[ "$1x" =~ ^- ]]; then
+                        if [ "$1x" == "-px" ]; then
+                                        K8_CONTEXT="$PROD_K8_CONTEXT"
+                                        echo "pods from prod environment"
+                        elif [ "$1x" == "-ox" ]; then
+                                        K8_CONTEXT="$ORT_K8_CONTEXT"
+                                        echo "list prods from ORT environment"
+                        else
+                                        K8_CONTEXT="$TEST_K8_CONTEXT"
+                                        echo "pods from test environment"
+                        fi
+
+                        shift
+        else
+
+                        K8_CONTEXT="$TEST_K8_CONTEXT"
+                        echo "pods from test environment"
+
+        fi
+	kubectl get -o json pod/$1  --context=$ORT_K8_CONTEXT -n $K8_NAME
+}
 function pk_exec {
 	if [[ "$1x" =~ ^- ]]; then
                 if [ "$1x" == "-px" ]; then
@@ -113,6 +135,12 @@ function mvn_switch_profile {
 	fi 
 		
 	export current_active_profile=$1
+}
+
+function branch {
+	git co master
+	git pull
+	git co -b $1
 }
 
 function p_list {

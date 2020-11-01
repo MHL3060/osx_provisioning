@@ -7,7 +7,6 @@ from dateutil import tz
 regexp = 'message="(.*?)"'
 
 to_local = tz.tzlocal()
-
 for line in sys.stdin :
     if (line.find('/heartbeat') == -1):
         try:
