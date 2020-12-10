@@ -1,8 +1,10 @@
 function p {
-    if [ $# == 0 ] || [ "x$1" == "xls" ]; then
+    if [ $# -eq 0 ] || [ "x$1" == "xls" ]; then
         ls -l $PROJECT_ROOT
-    else
-        cd $PROJECT_ROOT/$1
+    elif [ "x$1" == "x-" ]; then
+	popd
+    else				
+        pushd $PROJECT_ROOT/$1
     fi
 }
 function klog {
