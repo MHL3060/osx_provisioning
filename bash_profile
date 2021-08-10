@@ -13,7 +13,7 @@ fi
 if [ -f /usr/local/Cellar/git/2.17.0/etc/bash_completion.d/git-completion.bash ]; then
   . /usr/local/./Cellar/git/2.17.0/etc/bash_completion.d/git-completion.bash
 fi
-export MAVEN_OPTS="-Xms256M -Xmx2048M -noverify"
+export MAVEN_OPTS="-Xms256M -Xmx1048M -noverify"
 export EDITOR=nvim
 export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2049M"
 export PROMPT_DIRTRIM=1
