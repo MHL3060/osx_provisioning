@@ -1,5 +1,5 @@
 function p {
-    if [ $# == 0 ] || [ "x$1" == "xls" ]; then
+    if [ $# -eq 0 ] || [ "x$1" == "xls" ]; then
         ls -l $PROJECT_ROOT
     else
         cd $PROJECT_ROOT/$1
