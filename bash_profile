@@ -1,10 +1,13 @@
 # vim: set ft=sh:
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo "D=$DIR"
 platform=`uname`
 PS1=
 export PATH=$PATH:/usr/libexec
+
+. $DIR/bash-preexec.sh
+. $DIR/voice2.sh
+
 # GIT_PROMPT_END="\n[\u@\h] \A \$ "
 if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
     __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
@@ -18,7 +21,7 @@ export EDITOR=nvim
 export SBT_OPTS="-XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=2049M"
 export PROMPT_DIRTRIM=1
 export PS1='\t[\u@l \w]$ '
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+#DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 . $DIR/functions.sh
 . $DIR/alias.sh
 LS_OPTS=""
