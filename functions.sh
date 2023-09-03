@@ -1,17 +1,23 @@
 function p {
-    if [ $# -eq 0 ] || [ "x$1" == "xls" ]; then
-        ls -l $PROJECT_ROOT
-    elif [ "x$1" == "x-" ]; then
-	popd
-    else				
-        pushd $PROJECT_ROOT/$1
+	echo "$PROJECT_ROOT/$1"
+    if [[ "$#" == "0" ]] || [[ "x$1" == "xls" ]]; then
+        echo "no"
+	    ls -l $PROJECT_ROOT
+    elif [[ "x$1" == "x-" ]]; then
+	echo "popd"
+	    popd
+    else
+	    echo "pushed"
+        pushd "$PROJECT_ROOT/$1"
     fi
 }
 function klog {
 	echo "this method filters feature and datadog log"
 	kubectl logs $* |grep -v 'datadog' |grep -v heartbeat |grep -v jvm |grep -v jmx |grep -v feature
 }
-
+function f_vim {
+	vim $(find . -name $1)
+}
 function pk {
 	if [[ "$1x" =~ ^- ]]; then
 			if [ "$1x" == "-px" ]; then
@@ -195,7 +201,7 @@ function config_git {
 	git config --global alias.st status
 }
 
-function update_docker-compose {
+function update_docker_compose {
     FILE=${1:-docker-compose.yml}
     yq d $FILE services.tomcat | \
     yq w - "services.activemq.ports[+]" "61616:61616" | \

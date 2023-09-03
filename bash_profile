@@ -6,7 +6,7 @@ PS1=
 export PATH=$PATH:/usr/libexec
 
 . $DIR/bash-preexec.sh
-. $DIR/voice2.sh
+# . $DIR/voice2.sh
 
 # GIT_PROMPT_END="\n[\u@\h] \A \$ "
 if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
@@ -37,3 +37,4 @@ fi
 if [ -e /usr/local/opt/nvm/nvm.sh ]; then
 	. /usr/local/opt/nvm/nvm.sh
 fi
+export OSX_PROVISION_INSTALLED=1
