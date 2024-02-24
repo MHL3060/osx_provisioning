@@ -5,8 +5,8 @@ alias buildClient="npm run test && npm run build.dev:aot-check"
 alias alert='terminal-notifier -message '
 alias git_stash="git diff stash@{0}^1 stash@{0} "
 alias docker_rmi="docker rmi -f \$(docker images -a -q)"
-if [ `which exa` ]; then
-        alias ls="exa"
+if [ `which eza` ]; then
+        alias ls="eza"
     	LS_OPTS="--git -h"
 fi
 alias vim="nvim"

@@ -18,5 +18,7 @@ if dein#load_state('~/.cache/dein')
  call dein#save_state()
 endif
 
+set expandtab
+set tabstop=4
 filetype plugin indent on
 syntax enable
